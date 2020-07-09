@@ -1,4 +1,5 @@
-import {BadRequestException, Controller, Delete, Get, Header, HttpCode, Param, Post} from '@nestjs/common';
+import {BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Query} from '@nestjs/common';
+import {query} from "express";
 //http -> juegos - http
 //http://localhost:3001/juegos-http
 @Controller('juegos-http')
@@ -42,15 +43,40 @@ export class HttpJuegoController{
             isNaN(parametrosRuta.altura)
             throw new BadRequestException('no son numeros')
         }*/
-        /*isNaN(parametrosRuta.edad)
+        isNaN(parametrosRuta.edad)
         isNaN(parametrosRuta.altura)
-        throw new BadRequestException('no son numeros')*/
+
+        //throw new BadRequestException('no son numeros')
         //return 'ok';
         // Validar que es un numero
+
         const edad = Number(parametrosRuta.edad)
         const altura = Number(parametrosRuta.altura)
         return edad + altura;
 
+    }
+    @Get('parametros-consulta')
+    parametrosConsulta(@Query() parametrosDeConsulta
+    ){
+        const tieneNombreYApellido = parametrosDeConsulta.nombre &&
+            parametrosDeConsulta.apellido;
+        /* const tieneNombreYApellido = parametrosDeConsulta.nombre != undefined &&
+            parametrosDeConsulta.apellido != undefined;*/
+        console.log('parametrosDeConsulta',parametrosDeConsulta);
+        if (tieneNombreYApellido){
+            return parametrosDeConsulta.nombre + ' '+ parametrosDeConsulta.apellido
+        }else{
+            return ':)';
+        }
+        //body params no se pueden eviar en el get
+
+    }
+    @Post('parametros-cuerpo')
+    parametrosCuerpo(
+        @Body() parametrosCuerpo
+    ){
+        console.log('parametros de cuerpo',parametrosCuerpo)
+        return 'Registro Creado';
     }
 
 }
