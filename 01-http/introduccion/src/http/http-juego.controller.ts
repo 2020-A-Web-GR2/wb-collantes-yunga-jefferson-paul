@@ -1,5 +1,18 @@
-import {BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Query} from '@nestjs/common';
-import {query} from "express";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Header,
+    HttpCode,
+    Param,
+    Post,
+    Query,
+    Req, Res
+} from '@nestjs/common';
+import {MascotaCreateDto} from "./dto/mascota.create-dto";
+import {validate, ValidationError} from "class-validator";
 //http -> juegos - http
 //http://localhost:3001/juegos-http
 @Controller('juegos-http')
@@ -72,11 +85,53 @@ export class HttpJuegoController{
 
     }
     @Post('parametros-cuerpo')
-    parametrosCuerpo(
+    @HttpCode(200)
+    async parametrosCuerpo(
         @Body() parametrosCuerpo
     ){
-        console.log('parametros de cuerpo',parametrosCuerpo)
-        return 'Registro Creado';
+        //Promesas
+        const mascotaValida = new MascotaCreateDto();
+        mascotaValida.casada = parametrosCuerpo.casada;
+        mascotaValida.edad = parametrosCuerpo.edad;
+        mascotaValida.ligada = parametrosCuerpo.ligada;
+        mascotaValida.nombre = parametrosCuerpo.nombre;
+        mascotaValida.peso = parametrosCuerpo.peso;
+        try{
+            const errores: ValidationError[] =await validate(mascotaValida)
+            if(errores.length>0){
+                console.error('',errores);
+                throw new BadRequestException('Error Validando')
+            } else {
+                const mensajeCorrecto = {
+                    mesaje : 'Se creo Correctamente'
+                }
+                return mensajeCorrecto
+            }
+        }catch(e){
+            console.error('error',e);
+            throw new BadRequestException('Error al validar')
+        }
+
+    }
+    //1 Guardar una cookie Insegura
+
+    @Get('guardarCookieInsegura')
+    guardarCookieInsegura(
+        @Query() parametrosConsulta,
+        @Req() req,
+        @Res()res
+    ) {
+        res.cookie(
+            'galletaInsegura',
+            'Tengo hambre'
+        );
+        const mensaje = {
+            mensaje: 'OK cooki'
+        };
+        res.send(mensaje)
     }
 
+    //1 Guardar una cookie Insegura
+    //2 Guardar una cookie Segura
+    //3 Mostrar cookies
 }
