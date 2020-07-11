@@ -1,8 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-
+const cookieParser = require('cookie-parser');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  /*Cualquier configuracion se realiza aqui antes de que arranque el servidosn*/
+
+  app.use(cookieParser())
+  await app.listen(3001);
 }
 bootstrap();
