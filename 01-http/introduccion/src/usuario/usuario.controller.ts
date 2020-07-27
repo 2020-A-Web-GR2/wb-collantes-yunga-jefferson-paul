@@ -1,19 +1,19 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
 
 @Controller('usuario')
 export class UsuarioController {
     public arregloUsuarios = [
         {
             id: 1,
-            nombre: 'Adrian'
+            nombre: 'Jefferson'
         },
         {
             id: 2,
-            nombre: 'Vicente'
+            nombre: 'Paul'
         },
         {
             id: 3,
-            nombre: 'Wendy'
+            nombre: 'Martin'
         }
     ]
     public idActual = 3;
@@ -22,7 +22,7 @@ export class UsuarioController {
     mostrarTodos() {
         return this.arregloUsuarios
     }
-
+// para utilizar un json
     @Post()
     crearUno(
         @Body() parametrosCuerpo
@@ -47,6 +47,33 @@ export class UsuarioController {
         return this.arregloUsuarios[indice];
 
     }
+    //http://localhost:3001/usuario/1
+    @Put(':id')
+    editarUno(
+        @Param() parametrosRuta,
+        @Body () parametrosCuerpo
+    ){
+        const indice = this.arregloUsuarios.findIndex(
+            // (usuario) => usuario.id === Number(parametrosRuta.id)
+            (usuario) => usuario.id === Number(parametrosRuta.id)
+        )
+        this.arregloUsuarios[indice].nombre = parametrosCuerpo.nombre
+        return this.arregloUsuarios[indice];
+
+    }
+    @Delete(':id')
+    eliminarUno(
+        @Param() parametrosRuta
+    ){
+        const indice = this.arregloUsuarios.findIndex(
+
+            (usuario) => usuario.id === Number(parametrosRuta.id)
+        )
+        this.arregloUsuarios.splice(indice,1);
+        return this.arregloUsuarios[indice];
+
+    }
+
 
     // XML <usuario><nombre>ADRIAN</nombre></usuario>
     // JSON {"nombre":"ADRIAN"}
@@ -63,6 +90,7 @@ export class UsuarioController {
     // PUT http://localhost:3001/mascota/1 (BODY) {"nombre":"panda"}
     // Eliminar Uno
     // DELETE http://localhost:3001/mascota/1
+
 
 
 }
