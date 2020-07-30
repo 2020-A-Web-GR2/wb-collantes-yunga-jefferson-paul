@@ -15,7 +15,7 @@ import {UsuarioEntity} from "./usuario/usuario.entity";
       port: 3306, // puerto
       username: 'root', // usuario
       password: 'root',// password
-      database: 'test', // nombre de labase
+      database: 'prueba', // nombre de labase
       entities: [ UsuarioEntity
 
       ],
