@@ -9,7 +9,7 @@ import {
     Param,
     Post,
     Query,
-    Req, Res
+    Req, Res,Headers
 } from '@nestjs/common';
 import {MascotaCreateDto} from "./dto/mascota.create-dto";
 import {validate, ValidationError} from "class-validator";
@@ -129,6 +129,61 @@ export class HttpJuegoController{
             mensaje: 'OK cooki'
         };
         res.send(mensaje)
+    }
+    @Get('guardarCookieSegura')
+    guardarCookieSegura(
+        @Query() parametrosConsulta,
+        @Req() req, //  request - PETICION
+        @Res() res // response - RESPUESTA
+    ) {
+        res.cookie(
+            'galletaSegura', // nombre
+            'Web :3', // valor
+            {
+                secure: true
+            }
+        );
+        const mensaje = {
+            mensaje: 'ok'
+        };
+        // return mensaje; // NO SE PUEDE USAR RETURN CUANDO SE USA @Res() OJO !!!
+        res.send(mensaje); // METODO EXPRESSJS
+    }
+
+    @Get('mostrarCookies')
+    mostrarCookies(
+        @Req() req
+    ) {
+        const mensaje = {
+            sinFirmar: req.cookies,
+            firmadas: req.signedCookies
+        };
+        return mensaje;
+    }
+
+    @Get('guardarCookieFirmada')
+    public guardarCookieFirmada(
+        @Res() res,
+        @Headers() headers // peticion - request
+    ) {
+        // ENCRIPCION DE LA POLIBURGUER CON EL ALGORITMO Q YO QUIERO
+        console.log('Headers', headers);
+
+        res.header('Cabecera','Dinamica'); // respuesta - response
+
+        res.cookie('firmada', 'poliburguer', {signed: true});
+        res.cookie('firmada1', 'poliburguer1', {signed: true});
+        res.cookie('firmada2', 'poliburguer2', {signed: true});
+        res.cookie('firmada3', 'poliburguer3', {signed: true});
+        res.cookie('firmada4', 'poliburguer4', {signed: true});
+
+
+
+
+        const mensaje = {
+            mensaje: 'ok'
+        };
+        res.send(mensaje);
     }
 
     //1 Guardar una cookie Insegura

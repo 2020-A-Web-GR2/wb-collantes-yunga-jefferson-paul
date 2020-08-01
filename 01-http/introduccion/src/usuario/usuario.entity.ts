@@ -14,7 +14,7 @@ export class UsuarioEntity{
     @PrimaryGeneratedColumn({
         unsigned:true, // para que sean solo numeros positivos
         comment: 'Identificador',
-        name : 'id '
+        name : 'id'
     })
     id:number;
 
@@ -48,8 +48,6 @@ export class UsuarioEntity{
         type:'decimal',
         precision:10, //10000000000
         scale:4 //.0000
-
-
     })
     sueldo?:number;
 

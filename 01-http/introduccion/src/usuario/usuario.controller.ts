@@ -91,6 +91,4 @@ export class UsuarioController {
     // Eliminar Uno
     // DELETE http://localhost:3001/mascota/1
 
-
-
 }
