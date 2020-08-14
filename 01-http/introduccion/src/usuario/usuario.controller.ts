@@ -1,4 +1,15 @@
-import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    InternalServerErrorException, NotFoundException,
+    Param,
+    Post,
+    Put
+} from '@nestjs/common';
+import {UsuarioService} from "./usuario.service";
 
 @Controller('usuario')
 export class UsuarioController {
@@ -18,59 +29,130 @@ export class UsuarioController {
     ]
     public idActual = 3;
 
+    constructor(//inyeccio de dependencias
+        private readonly _usuarioService:UsuarioService
+    ) {
+    }
+
     @Get()
-    mostrarTodos() {
-        return this.arregloUsuarios
+    async mostrarTodos() {
+        try{
+            const respuesta = await this._usuarioService.buscarTodos();
+            return respuesta;
+
+        }catch (e) {
+            console.error(e)
+            throw new InternalServerErrorException({
+                mensaje:'Error en el servidor'
+            })
+        }
+        //return this.arregloUsuarios
     }
 // para utilizar un json
     @Post()
-    crearUno(
+    async crearUno(
         @Body() parametrosCuerpo
     ) {
-        const nuevoUsuario = {
-            id: this.idActual + 1,
-            nombre: parametrosCuerpo.nombre
-        };
-        this.arregloUsuarios.push(nuevoUsuario);
-        this.idActual = this.idActual + 1;
-        return nuevoUsuario;
+        try{
+            //Validacion de los DTO
+            const respuesta = await this._usuarioService.crearUno(parametrosCuerpo);
+            return respuesta
+        }
+        catch (e) {
+            console.error(e)
+            throw new BadRequestException({
+                mensaje:'Error al validar los datos'
+            });
+        }
+        //const nuevoUsuario = {
+        //    id: this.idActual + 1,
+        //    nombre: parametrosCuerpo.nombre
+        //};
+        //this.arregloUsuarios.push(nuevoUsuario);
+        //this.idActual = this.idActual + 1;
+        //return nuevoUsuario;
     }
 
     @Get(':id')
-    verUno(
+    async verUno(
         @Param() parametrosRuta
     ){
-        const indice = this.arregloUsuarios.findIndex(
+        let respuesta;
+        try{
+            respuesta = await this._usuarioService.buscarUno(Number(parametrosRuta.id));
+
+        }catch (e) {
+            console.error(e)
+            throw new InternalServerErrorException({
+                mensaje:'Error en el servidor'
+            })
+        }
+        if (respuesta){
+            return respuesta;
+        }else{
+            throw new NotFoundException({
+                mensaje:'No existen registros'
+            })
+        }
+        
+        //const indice = this.arregloUsuarios.findIndex(
             // (usuario) => usuario.id === Number(parametrosRuta.id)
-            (usuario) => usuario.id === Number(parametrosRuta.id)
-        )
-        return this.arregloUsuarios[indice];
+        //    (usuario) => usuario.id === Number(parametrosRuta.id)
+        //)
+        //return this.arregloUsuarios[indice];
 
     }
     //http://localhost:3001/usuario/1
     @Put(':id')
-    editarUno(
+    async editarUno(
         @Param() parametrosRuta,
         @Body () parametrosCuerpo
     ){
-        const indice = this.arregloUsuarios.findIndex(
+        const id = Number(parametrosRuta.id);
+        const usuarioEditado = parametrosCuerpo;
+        usuarioEditado.id = id;
+
+        try{
+            const  respuesta = await this._usuarioService.editarUno(usuarioEditado);
+            return respuesta;
+
+        }catch (e) {
+            console.error(e)
+            throw new InternalServerErrorException({
+                mensaje:'Error en el servidor'
+            })
+        }
+        //const indice = this.arregloUsuarios.findIndex(
             // (usuario) => usuario.id === Number(parametrosRuta.id)
-            (usuario) => usuario.id === Number(parametrosRuta.id)
-        )
-        this.arregloUsuarios[indice].nombre = parametrosCuerpo.nombre
-        return this.arregloUsuarios[indice];
+        //    (usuario) => usuario.id === Number(parametrosRuta.id)
+        //)
+        //this.arregloUsuarios[indice].nombre = parametrosCuerpo.nombre
+        //return this.arregloUsuarios[indice];
 
     }
     @Delete(':id')
-    eliminarUno(
+    async eliminarUno(
         @Param() parametrosRuta
     ){
-        const indice = this.arregloUsuarios.findIndex(
+        const id = Number(parametrosRuta.id)
+        try {
+            const respuesta = await this._usuarioService.eliminarUno(id);
+            return{
+                mensaje:'registro eliminado con id = '+id
+            };
+        }catch (e) {
+            console.error(e)
+            throw new InternalServerErrorException({
+                mensaje:'Error en el servidor'
+            })
+        }
 
-            (usuario) => usuario.id === Number(parametrosRuta.id)
-        )
-        this.arregloUsuarios.splice(indice,1);
-        return this.arregloUsuarios[indice];
+        //const indice = this.arregloUsuarios.findIndex(
+
+        //            (usuario) => usuario.id === Number(parametrosRuta.id)
+        //)
+        //this.arregloUsuarios.splice(indice,1);
+        //return this.arregloUsuarios[indice];
 
     }
 
