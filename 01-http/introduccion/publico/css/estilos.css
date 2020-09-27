@@ -1,4 +1,7 @@
 body{
     font-family: Arial;
-    color: greenyellow;
+    color: black;
+}
+td,th {
+    border: 2px solid #dddddd; /*2px definira lo grnade de la tabla*/
 }

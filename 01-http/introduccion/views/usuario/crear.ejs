@@ -1,0 +1,59 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component')%>
+<%- include('../compartido/menu/menu-component')%>
+
+
+
+<!-- usuario/crear.ejs-->
+<% const existeUsuario = typeof usuario != 'undefined'%>
+
+<% let existeNombre = typeof nombre !== 'undefined' %>
+<% let existeApellido = typeof apellido !== 'undefined' %>
+<% let existeCedula = typeof cedula !== 'undefined' %>
+
+<h1> <%= existeUsuario ? 'Editar' : 'Crear'%> usuario</h1>
+<!-- Setear el nombre y apellido-->
+<%if(existeUsuario){%>
+    <% existeNombre = true %>
+    <% existeApellido = true %>
+    <% existeCedula = true %>
+    <% nombre = usuario.nombre %>
+    <% apellido = usuario.apellido %>
+    <% cedula = usuario.cedula %>
+<%}%>
+
+
+<% if(typeof error !== 'undefined') { %>
+    <p>MENSAJE ERROR: <%= error %></p>
+<% } %>
+
+<form action="<%= existeUsuario ? '/usuario/editarDesdeVista/'+ usuario.id : '/usuario/crearDesdeVista' %>"
+      method="POST">
+
+    <label for="nombreID">Nombre:</label>
+    <input id="nombreID" type="text" name="nombre" value="<%= existeNombre ? nombre : '' %>">
+    <br>
+
+    <label for="apellidoID">Apellido:</label>
+    <input id="apellidoID" type="text" name="apellido" value="<%= existeApellido ? apellido : '' %>">
+    <br>
+
+    <label for="cedulaID">Cedula:</label>
+    <input id="cedulaID" type="text"
+           <%if (existeUsuario){%>
+                disabled
+            <%}%>
+           name="cedula" value="<%= existeCedula ? cedula : '' %>">
+    <br>
+    <button type="submit">SUBMIT</button>
+    <button type="reset">RESET</button>
+    <button type="button">BUTTON</button>
+    <button>QUE TIPO SOY?</button>
+
+</form>
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>
+
+
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component')%>

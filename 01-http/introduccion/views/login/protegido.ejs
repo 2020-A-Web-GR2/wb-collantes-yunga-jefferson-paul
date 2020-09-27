@@ -1,0 +1,14 @@
+<%const esSupervisor = roles.some((rol)=> rol == 'Supervisor')%>
+<%const esAdministrador = roles.some((rol)=> rol == 'Administrador')%>
+
+<p>Bienvenido <%= usuario %></p>
+
+<% if (esSupervisor){ %>
+<button>Supervisor</button>
+<% }%>
+<% if (esAdministrador){ %>
+<button>Administrador</button>
+<%}%>
+<a href="/logout">
+    <button>Logout</button>
+</a>

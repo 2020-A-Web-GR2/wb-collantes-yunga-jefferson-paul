@@ -1,7 +1,68 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component')%>
 <%- include('../compartido/menu/menu-component')%>
-<h1>Inicio</h1>
-<button onclick="mensajeAlertar()">
-    ALERTAR
-</button>
+<!-- <h1>Inicio</h1> -->
+<!--<button onclick="mensajeAlertar()">ALERTAR </button>-->
+<!--uso del igual "=" para mostrar valores en pantalla-->
+<p><%="Hola"%></p>
+<%=15%>
+<!-- "< % % >"  -->
+<% const  jefferson = {nombre:"Jefferson",apellido:"Collantes",cedula:"15"}%>
+<%const numero = 25 %>
+<%const mensaje= "Hol"%>
+<p><%= jefferson.nombre%><%=jefferson.apellido%></p>
+<p><%=numero%></p>
+<p><%=mensaje%></p>
+
+<% const arregloNumero = [1,3,2,4,5] %>
+<ul>
+    <% arregloNumero.forEach((objeto)=>{ %>
+    <li><%=objeto%></li>
+    <%})%>
+</ul>
+
+<a href="/usuario/vista/crear">
+    <button>Crear</button>
+</a>
+<!--mostrar mensaje de usuario eliminado -->
+<%if(typeof parametrosConsulta != 'undefined'){%>
+    <p>Mensaje <%= parametrosConsulta.mensaje %> </p>
+<%}%>
+
+
+<form action="/usuario/vista/inicio" method="GET">
+    <label for="busqueda">Busqueda:</label>
+    <input id="busqueda" type="text" name="busqueda">
+    <button type="submit">Buscar</button>
+</form>
+
+<table>
+    <!-- primero table row-->
+    <tr>
+        <!-- table headers -->
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Cedula</th>
+        <th>Acciones</th>
+    </tr>
+    <% arregloUsuarios.forEach( (objeto)=>{ %>
+        <tr>
+        <!-- table details -->
+            <td><%= objeto.nombre %></td>
+            <td><%= objeto.apellido %></td>
+            <td><%= objeto.cedula %></td>
+            <td>
+                <button>Ver</button>
+                <a href="/usuario/vista/editar/<%= objeto.id %>">
+                    <button>Editar</button>
+                </a>
+                <form action="/usuario/eliminarDesdeVista/<%= objeto.id%>" method="Post">
+                    <button>Eliminar</button>
+                </form>
+
+            </td>
+        </tr>
+    <%})%>
+</table>
+
+
 <%- include('../compartido/funcionalidad-general/funcionalidad-general-component')%>
