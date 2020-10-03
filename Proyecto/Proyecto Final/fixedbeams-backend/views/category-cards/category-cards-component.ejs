@@ -1,0 +1,13 @@
+<%-include("../search/search-component") %>
+<div class="card-deck d-flex justify-content-center">
+    <% domainCategories.forEach((category) => { %>
+    <div class="card puntero fadeIn" style="width: 16rem;" href="gato"> 
+        <img class="card-img-top" src="<%= category.srcImage %>" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title"><%= category.name %></h5>
+        <p class="card-text"><%= category.description %></p>
+        <a href="/category/view/<%= category.id %> " class="btn btn-success">Ver categoria</a>
+        </div>
+    </div>
+    <% }) %>    
+</div>

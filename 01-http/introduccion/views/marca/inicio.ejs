@@ -1,0 +1,44 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component')%>
+<%- include('../compartido/menu/menu-component')%>
+<p>Agregar una nuevo Vehiculo</p>
+<a href="/marca/vista/crear">
+    <button>Crear</button>
+</a>
+
+<form action="/marca/vista/inicio" method="GET">
+    <label for="busqueda">Busqueda: </label>
+    <input id="busqueda" type="text" name="busqueda" value="<%= parametrosConsulta.busqueda %>">
+    <button type="submit">Buscar</button>
+</form>
+
+<table>
+    <tr>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Año</th>
+        <th>Cilindraje</th>
+        <th>Pais origen</th>
+    </tr>
+
+    <% arregloMarcas.forEach((marca) => { %>
+        <tr>
+            <!-- table details -->
+            <td><%= marca.marca %></td>
+            <td><%= marca.modelo %></td>
+            <td><%= marca.anio %></td>
+            <td><%= marca.cilindraje %></td>
+            <td><%= marca.pais_origen %></td>
+            <td>
+                <a href="/marca/vista/editar/<%= marca.id %>">
+                    <button>Editar</button>
+                </a>
+                <form action="/marca/vista/eliminar/<%= marca.id %>" method="POST">
+                    <button type="submit">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+
+</table>
+
+<%- include('../compartido/funcionalidad-general/funcionalidad-general-component') %>

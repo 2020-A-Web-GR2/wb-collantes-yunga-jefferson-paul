@@ -1,0 +1,33 @@
+<%- include ('head') %>
+<%- include ('menu-login') %>
+<body background="assets/img/background.png">
+<div class="container">
+    <br><br>
+    <form action="/user/view/login" method="POST">
+        <h1>Iniciar Sesion</h1>
+        <br>
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">
+                Modo
+            </label>
+            <select class="form-control" name="paymentType" id="exampleFormControlSelect1" required >
+                <option value="cash">Administrador</option>
+                <option value="credit card">Cliente</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="input-correo-login">Correo Electronico</label>
+            <input type="email" class="form-control" id="input-correo-login" name="email">
+        </div>
+        <div class="form-group">
+            <label for="input-contrasenia-login">Password</label>
+            <input type="password" class="form-control" id="input-contrasenia-login" name="password">
+        </div>
+
+        <br><br>
+
+        <button type="submit" class="btn btn-primary tamanio-24">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ingresar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </form>
+    <br><br><br><br>
+</div>
+</body>

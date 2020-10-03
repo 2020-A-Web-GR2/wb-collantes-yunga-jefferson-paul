@@ -1,0 +1,12 @@
+<h1><%= usuario? `Bienvenido ${usuario}` : "Por favor ingrese session" %></h1>
+
+<% if(usuario){ %>
+    <a href="/logout">
+        <button>Logout</button>
+    </a>
+<% } else{ %>
+
+    <a href="/login">
+        <button>Login</button>
+    </a>
+<% } %>

@@ -1,0 +1,14 @@
+<h2 class="d-flex justify-content-center mt-3 my-3">Productos de <%= categoryName %> </h2>
+<div class="card-deck d-flex justify-content-center mt-3 my-3">
+    <% categoryProducts.forEach( product => { %>
+    <div class="card puntero fadeIn" style="width: 16rem;"> 
+        <img class="card-img-top" src="<%= product.srcImage %> " alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title"><%= product.name %> </h5>
+            <p class="card-text"><%= product.summary %> </p>
+            <a href="/product/view/<%= product.id %> " class="btn btn-success">Agregar</a>
+            <strong> $<%= product.price %> </strong>
+        </div>
+    </div>
+    <% }); %>
+</div>

@@ -1,0 +1,77 @@
+<% 
+if(typeof products === "undefined"){
+  products = [];
+}
+
+if (typeof user === "undefined" || !user){
+  user = {userName: "Login", srcImage: "/assets/img/mainbar/user.png"}
+}
+
+%>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="/">
+        <img src="/assets/img/mainbar/visual-title.png" height="35" alt="" loading="lazy">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">  
+      <div class="mr-auto"></div>
+      <form class="form-inline my-2 my-lg-0">
+        <div class="btn-group">
+          <button  class="btn my-2 my-sm-0"
+                 type="button" href="car"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false">
+            <img src="/assets/img/mainbar/cart.png" width="50" height="50"/>
+          </button>
+          <div class="container">
+            <div class="dropdown-menu" id="car">
+              <table id="car-list">
+                <tr>
+                  <th scope="col-md-6">Imagen</th>
+                  <th scope="col-md-3">Nombre</th>
+                  <th scope="col-md-3">Cantidad</th>
+                  <th scope="col-md-3">Precio/U</th>
+                </tr>
+                <div class="dropdown-divider"></div>
+              <% products.forEach( product => { %>
+                <tr>
+                  <td>
+                    <img src="<%= product.srcImage %> " height="100" alt="" loading="lazy">
+                  </td>
+                  <td>
+                    <p>
+                      <%= product.name %> 
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <%= product.quantity %> 
+                    </p>
+                  </td>
+                  <td>
+                    <p>
+                      <%= product.price %> 
+                    </p>
+                  </td>
+                </tr>
+              <% }) %> 
+              </table>
+              <div class="dropdown-divider"></div>
+              <button type="button" class="btn btn-warning btn-outline-dark align-content-center" onclick="goToBill()">
+                Adquirir Productos
+              </button>
+              <button type="button" class="btn btn-light btn-outline-dark align-content-center" onclick="cleanCart()"> Eliminar Compra </button>
+            </div>
+          </div>
+        </div>
+        <input id="searchMainbar" class="form-control mr-sm-" type="search" placeholder="Search" aria-label="Search">
+        <button onclick="buscarDesdeMainBar()" class="btn my-2 my-sm-0" type="button"><img src="/assets/img/mainbar/search.png" width="50" height="50"/></button>
+        <button onclick="irALogin()" class="btn my-2 my-sm-0 textButton" type="button"><img src="<%= user.srcImage %>" width="40" height="40"/> <%= user.userName %>  </button>
+      </form>
+    </div>
+  </nav>

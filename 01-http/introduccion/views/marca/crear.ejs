@@ -1,0 +1,62 @@
+<%- include('../compartido/estilos-generales/estilos-generales-component')%>
+<%- include('../compartido/menu/menu-component')%>
+
+<% const existeMarca = typeof marca != "undefined" %>
+
+
+<% let existeMarcaM = typeof marcaM !== "undefined" %>
+<% let existeModelo = typeof modelo !== "undefined" %>
+<% let existeAnio = typeof anio !== "undefined" %>
+<% let existeCilindraje = typeof cilindraje !== "undefined" %>
+<% let existePaisOrigen = typeof pais_origen !== "undefined" %>
+
+
+<h1><%= existeMarca ? "Editar" : "Crear"  %> Marca </h1>
+
+
+<% if(existeMarca) {%>
+    <% existeMarcaM = true %>
+    <% existeModelo = true %>
+    <% existeAnio = true %>
+    <% existeCilindraje = true %>
+    <% existePaisOrigen = true %>
+
+    <% marcaM = marca.marca %>
+    <% modelo = marca.modelo %>
+    <% anio = marca.anio %>
+    <% cilindraje = marca.cilindraje %>
+    <% pais_origen = marca.pais_origen %>
+<% } %>
+
+<% if(typeof error !== "undefined") {%>
+    <p>MENSAJE DE ERROR: <%= error %> </p>
+<%  }%>
+
+
+<form action="<%= existeMarca? '/marca/editarDesdeVista/' + marca.id : '/marca/crearDesdeVista'%>" method="POST">
+
+    <label for="marcaID">Marca</label>
+    <input id="marcaID" type="text" name="marca" value="<%= existeMarcaM? marcaM : '' %>">
+    <br>
+
+    <label for="modeloID">Modelo</label>
+    <input id="modeloID" type="text" name="modelo" value="<%= existeModelo? modelo : '' %>">
+    <br>
+
+    <label for="anioID">Anio</label>
+    <input id="anioID" type="text" name="anio" value="<%= existeAnio? anio : '' %>">
+    <br>
+
+    <label for="cilindrajeID">Cilindraje</label>
+    <input id="cilindrajeID" type="text" name="cilindraje" value="<%= existeCilindraje? cilindraje : '' %>">
+    <br>
+
+    <label for="pais_origenID">Pais de Origen</label>
+    <input id="pais_origenID" type="text" name="pais_origen" value="<%= existePaisOrigen? pais_origen : '' %>">
+    <br>
+
+    <button type="submit">SUBMIT</button>
+    <button type="reset">RESET</button>
+</form>
+
+<%- include("../compartido/funcionalidad-general/funcionalidad-general-component")%>

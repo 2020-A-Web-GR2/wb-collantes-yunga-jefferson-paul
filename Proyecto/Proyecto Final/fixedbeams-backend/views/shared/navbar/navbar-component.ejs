@@ -1,0 +1,32 @@
+<% 
+const  listaDominios = []; 
+listaDominios.push({name:"cars", id: 1, srcImage: "/assets/img/navbar/cars.png"});
+listaDominios.push({name:"equipments", id: 2, srcImage: "/assets/img/navbar/equipments.png"});
+listaDominios.push({name:"materials", id: 3, srcImage: "/assets/img/navbar/materials.png"});
+listaDominios.push({name:"teams", id: 4, srcImage: "/assets/img/navbar/teams.png"});
+listaDominios.push({name:"tools", id: 5, srcImage: "/assets/img/navbar/tools.png"});
+%> 
+
+<nav id="navbar" class="nav nav-pills navbar justify-content-center ml-3 mt-3 rounded">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="">
+                <img src="/assets/img/navbar/menu.png" width="50" height="50" alt=""> 
+            </a>
+        </li>
+    
+    <% listaDominios.forEach((dominio) => { %>
+        <li class="nav-item">
+            <a class="nav-link" href="/domain/view/<%= dominio.id %>">
+                <img src="<%= dominio.srcImage %>" width="50" height="50" alt=""> 
+            </a>
+        </li>
+    <% }) %> 
+     
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="...">
+                <img src="/assets/img/navbar/more.png" width="50" height="50" alt=""> 
+            </a>
+        </li>
+    </ul>
+</nav>

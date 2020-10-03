@@ -1,0 +1,31 @@
+<%- include("../shared/estilos-generales/estilos-generales-component")%>
+
+<div class="row background" >
+    <div class="col-sm-1">
+        <%- include("../shared/navbar/navbar-component")%>
+    </div>
+    <div class="col-sm-11">
+        <%- include("../shared/mainbar/mainbar-component")%>
+        <%switch(pagina){
+            case "search": %>
+                <%-include("../search/search-component") %>
+                <% break; 
+            case "category-cards": %>
+                <%-include("../category-cards/category-cards-component") %>
+                <% break; 
+            case "product-cards": %>
+                <%-include("../product-cards/product-cards-component") %>
+                <% break; 
+            case "product": %>
+                <%-include("../product/product-component") %>
+                <% break; 
+            case "form-bill": %>
+                <%-include("../form-bill/form-bill-component") %>
+                <% break;
+            default: %>
+                <%-include("../search/search-component") %>
+        <% } %>         
+    </div>
+</div>
+
+<%- include("../shared/funcionalidad-general/funcionalidad-general-component")%>

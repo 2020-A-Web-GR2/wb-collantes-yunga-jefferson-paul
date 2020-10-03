@@ -1,0 +1,140 @@
+<% 
+let total = 0
+if(typeof products === "undefined"){
+  products = [];
+} else {
+  products.forEach(product => {
+    total += (product.quantity * product.price)
+  })
+}
+%>
+
+<div class="container">
+    <form><!-- TODO: Hacer el Post -->
+      <div class="row">
+        <div class="col-sm">
+          <h2>
+            Lugar de Entrega
+          </h2>
+          <div class="row">
+            <img src="/assets/img/bill/map.jpeg" height="225" width="600"/>
+          </div>
+          <div>
+            <h2>
+              Lugar:
+            </h2>
+            <select class="form-control" id="selectplace">
+              <option>Quito</option>
+              <option>Guayaquil</option>
+              <option>Cuenca</option>
+            </select>
+            <div class="dropdown-divider"></div>
+            <h2>
+              Hora:
+            </h2>
+            <select class="form-control" id="selecthour">
+              <option>7-9</option>
+              <option>9-11</option>
+              <option>11-13</option>
+              <option>14-16</option>
+              <option>16-18</option>
+              <option>Lo mas antes posible</option>
+            </select>
+            <div class="dropdown-divider"></div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">
+              <h2>
+                Forma de Pago:
+              </h2>
+            </label>
+            <select class="form-control"
+                    name="paymentType"
+                    id="exampleFormControlSelect1">
+              <option value="cash">Efectivo</option>
+              <option value="credit card">Tarjeta de Credito</option>
+              <option value="wire transfer">Transacion</option>
+            </select>
+          </div>
+          <div class="dropdown-divider"></div>
+        </div>
+        <div class="col-sm">
+          <h2>
+            Confirmar Pedido
+          </h2>
+  
+          <div class="overflow-auto" id="cont" style="width: 30rem; height: 20rem; background: #fff ">
+            <div class="container">
+              <table id="car-list">
+                <tr>
+                  <th scope="col-md-6">Imagen</th>
+                  <th scope="col-md-3">Nombre</th>
+                  <th scope="col-md-3">Cantidad</th>
+                  <th scope="col-md-3">Precio/U</th>
+                </tr>
+                <div class="dropdown-divider"></div>
+            <% products.forEach( product => { %>
+                <tr>
+                    <td>
+                        <img src="<%= product.srcImage %> " height="100" alt="" loading="lazy">
+                    </td>
+                    <td>
+                        <p>
+                            <%= product.name %> 
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= product.quantity %> 
+                        </p>
+                    </td>
+                    <td>
+                        <p>
+                            <%= product.price %> 
+                        </p>
+                    </td>
+                </tr>
+
+            <% }) %> 
+              </table>
+            </div>
+          </div>
+          <div class="container">
+            <h2>
+              Completa tu pedido
+            </h2>
+            <div class="dropdown-divider"></div>
+            <div class="form-group">
+              <label for="productos">
+                <h2>
+                  Productos
+                </h2>
+              </label>
+              <input type="text" class="form-control" id="productos" placeholder="$ <%= total  %> " disabled>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-group">
+              <label for="entrega">
+                <h2>
+                  Entrega
+                </h2>
+              </label>
+              <input type="text" class="form-control" id="entrega" placeholder="$ 5" disabled>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="form-group">
+              <label for="total">
+                <h2>
+                  Total
+                </h2>
+              </label>
+              <input type="text" class="form-control" id="total" placeholder="$ <%= total + 5 %> " disabled>
+            </div>
+            <div class="dropdown-divider"></div>
+            <button type="button" class="btn btn-warning" onclick="createBill()">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>

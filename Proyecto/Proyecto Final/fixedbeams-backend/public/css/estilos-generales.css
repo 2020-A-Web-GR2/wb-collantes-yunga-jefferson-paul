@@ -1,0 +1,57 @@
+.background {
+    background-image: url('/assets/img/background.png');
+}
+
+#searchBox {
+    border: 1px solid lightslategrey;
+  }
+  
+#navbar {
+    background-color: #CCD3DF;
+    border: 1px solid lightslategrey;
+}
+.nav-item.active {
+    background-color: #FFBD3B;
+    border: 2px solid black;
+}
+
+.textButton {
+  background-color: #FFBD3B; /* Green */
+  border: 1px solid black;
+  font-weight: 700;
+}
+
+#searchBoxTitle {
+  border: 1px solid lightslategrey;
+}
+
+#slogan {
+  padding-top: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
+  text-align: center;
+  font-size: xx-large;
+}
+#searchBoxTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn-success {
+  background-color: #FFBD3B;
+  border: black;
+  color: black;
+  font-weight: 500;
+}
+
+.texto-grande {
+  font-size: large;
+  font-weight: 500;
+}
+
+.btn-primary{
+  background-color: #FFBD3B;
+  border: 1px solid black;
+  color: black;
+  font-weight: bolder;
+}

@@ -9,9 +9,11 @@ import {MascotaModule} from "./mascota/mascota.module";
 import {VacunaModule} from "./vacuna/vacuna.module";
 import {VacunaEntity} from "./vacuna/vacuna.entity";
 import {MascotaEntity} from "./mascota/mascota.entity";
+import {MarcaModule} from "./marca/marca.module";
+import {MarcaEntity} from "./marca/marca.entity";
 
 @Module({
-  imports: [HttpJuegoModule,UsuarioModule,MascotaModule,VacunaModule,
+  imports: [HttpJuegoModule,UsuarioModule,MascotaModule,VacunaModule,MarcaModule,
     TypeOrmModule.forRoot({
       name:'default', // nombre de la conexion
       type: 'mysql', // postgres
@@ -23,7 +25,8 @@ import {MascotaEntity} from "./mascota/mascota.entity";
       entities: [
           UsuarioEntity,
           VacunaEntity,
-          MascotaEntity
+          MascotaEntity,
+          MarcaEntity
 
       ],
       synchronize: true, // para sincronizar la base de datos

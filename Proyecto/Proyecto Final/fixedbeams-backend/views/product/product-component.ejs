@@ -1,0 +1,33 @@
+<div class="row mt-3">
+    <div class="col-sm-5">
+        <img src="<%= product.srcImage %> " alt="">
+    </div>
+    <div class="col-sm-7">
+        <div class="mb-3">
+            <h2><%= product.name %> </h2>
+            <p class="texto-grande">Producto #<b id="idProduct"><%= product.id %></b></p>
+        </div>
+        <p class="texto-grande">
+            <%= product.summary %> 
+            <%= product.summary %> 
+            <%= product.summary %> 
+        </p>
+        <br>
+
+        <div class="row align-items-center">
+            <div class="col-sm-3">
+                <p class="texto-grande">Precio: <strong><%= product.price %> </strong></p>
+                <p class="texto-grande">Stock: <b id="stock"><%= product.stock %></b></p>
+                <button type="button" class="btn btn-primary"
+                onclick="disminuirCantidad()">-</button>
+                <b id="contador"> <%= cantidad %>  </b>
+                <button type="button" class="btn btn-primary btn-outline-dark"
+                onclick="aumentarCantidad()">+</button>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn my-2 my-sm-0 textButton" type="button"
+                onclick="guardarProducto()"><img src="/assets/img/mainbar/cart.png" width="40" height="40"/> Añadir al carrito</button>
+            </div>
+        </div>
+    </div>
+</div>
